@@ -2,11 +2,17 @@ import React, { useState, DragEvent, ChangeEvent, useEffect } from "react";
 
 const FILE_SIZE_LIMIT_MB = 25;
 const FILE_SIZE_LIMIT_BYTES = FILE_SIZE_LIMIT_MB * 1024 * 1024; // Convert MB to Bytes
+interface InputBoxProps {
+	fileName: string | null;
+	setFileName: React.Dispatch<React.SetStateAction<string | null>>;
+	filePreview: string | null;
+	setFilePreview: React.Dispatch<React.SetStateAction<string | null>>;
+  }
+  
 
-const InputBox = () => {
+const InputBox: React.FC<InputBoxProps>  = ({fileName, setFileName, filePreview, setFilePreview}) => {
 	const [highlight, setHighlight] = useState<boolean>(false);
-	const [fileName, setFileName] = useState<string | null>(null);
-	const [filePreview, setFilePreview] = useState<string | null>(null);
+	
 	const [error, setError] = useState<string | null>(null);
 
 	// Load file from local storage on component mount
