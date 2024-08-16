@@ -1,118 +1,80 @@
-import React, { useState, DragEvent, ChangeEvent, useEffect } from "react";
+import { useState } from 'react';
+import { Button } from '../ui/button';
 
-const FILE_SIZE_LIMIT_MB = 25;
-const FILE_SIZE_LIMIT_BYTES = FILE_SIZE_LIMIT_MB * 1024 * 1024; // Convert MB to Bytes
-interface InputBoxProps {
-	fileName: string | null;
-	setFileName: React.Dispatch<React.SetStateAction<string | null>>;
-	filePreview: string | null;
-	setFilePreview: React.Dispatch<React.SetStateAction<string | null>>;
-  }
-  
+function InputBox() {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
 
-const InputBox: React.FC<InputBoxProps>  = ({fileName, setFileName, filePreview, setFilePreview}) => {
-	const [highlight, setHighlight] = useState<boolean>(false);
-	
-	const [error, setError] = useState<string | null>(null);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    setSelectedFile(file);
+  };
 
-	// Load file from local storage on component mount
-	useEffect(() => {
-		const storedFile = localStorage.getItem("uploadedFile");
-		if (storedFile) {
-			const fileData = JSON.parse(storedFile);
-			setFileName(fileData.name);
-			setFilePreview(fileData.data);
-		}
-	}, []);
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files ? e.dataTransfer.files[0] : null;
+    setSelectedFile(file);
+  };
 
-	const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
-		event.preventDefault();
-		setHighlight(true);
-	};
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
 
-	const handleDragLeave = () => {
-		setHighlight(false);
-	};
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
 
-	const handleDrop = (event: DragEvent<HTMLDivElement>) => {
-		event.preventDefault();
-		setHighlight(false);
-		if (event.dataTransfer.files.length > 0) {
-			(event.dataTransfer.files[0]);
-		}
-	};
+  const handleSubmit = () => {
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const fileData = reader.result as string;
+        const existingFiles = JSON.parse(localStorage.getItem('files') || '[]');
+        existingFiles.push({ name: selectedFile.name, content: fileData });
+        localStorage.setItem('files', JSON.stringify(existingFiles));
+        alert(`File "${selectedFile.name}" saved successfully.`);
+      };
+      reader.readAsDataURL(selectedFile);
+    } else {
+      alert('No file selected!');
+    }
+  };
 
-	const handleClick = () => {handleFile
-		document.getElementById("file-input")?.click();
-	};
-
-	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-		if (event.target.files && event.target.files.length > 0) {
-			handleFile(event.target.files[0]);
-		}
-	};
-
-	const handleFile = (file: File) => {
-		if (file.size > FILE_SIZE_LIMIT_BYTES) {
-			setError(`File size exceeds ${FILE_SIZE_LIMIT_MB} MB limit.`);
-			return;
-		}
-
-		setError(null);
-		const reader = new FileReader();
-		reader.onloadend = () => {
-			const base64File = reader.result as string;
-			const fileData = {
-				name: file.name,
-				data: base64File,
-			};
-			localStorage.setItem("uploadedFile", JSON.stringify(fileData));
-			setFileName(file.name);
-			setFilePreview(base64File);
-		};
-		reader.readAsDataURL(file);
-	};
-
-	return (
-		<div
-			className={`w-full h-[200px] flex flex-col items-center justify-center border-2 ${
-				highlight ? "border-black" : "border-dashed border-gray-300"
-			} rounded-lg cursor-pointer bg-gray-300`}
-			onClick={handleClick}
-			onDragOver={handleDragOver}
-			onDragLeave={handleDragLeave}
-			onDrop={handleDrop}
-		>
-			<input
-				id="file-input"
-				type="file"
-				accept=".pdf"
-				className=""
-				onChange={handleFileChange}
-			/>
-			<h2 className="text-gray-600 mb-2">
-				Drag and drop a PDF here or click to select
-			</h2>
-			{error && <p className="text-red-600">{error}</p>}
-			{fileName ? (
-				<div>
-					<p className="text-gray-700">Selected file: {fileName}</p>
-					{filePreview && (
-						<iframe
-							src={filePreview}
-							title="File Preview"
-							className="w-full h-[50px] mt-2"
-						/>
-					)}
-				</div>
-			) : (
-				<p className="text-gray-500">No file selected</p>
-			)}
-			<p className="text-gray-400 mt-2">
-				Limit: {FILE_SIZE_LIMIT_MB} MB per file
-			</p>
-		</div>
-	);
-};
+  return (
+    <div className="flex flex-col items-center">
+      <div
+        className={`relative bg-gray-300 border-2 border-dashed border-gray-500 w-[400px] h-[400px] flex items-center justify-center ${
+          isDragging ? 'bg-gray-500' : ''
+        }`}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+      >
+        <input
+          type="file"
+          onChange={handleFileChange}
+		  placeholder='hi'
+          className="absolute cursor-pointer"
+        />
+        {!selectedFile && !isDragging && (
+          <span>Drag & Drop or Click to Select a File</span>
+        )}
+        {isDragging && (
+          <div className=" bg-gray-500 opacity-50 flex items-center justify-center">
+            <span>Drop file here</span>
+          </div>
+        )}
+        {selectedFile && !isDragging && (
+          <span>{selectedFile.name}</span>
+        )}
+      </div>
+      <Button onClick={handleSubmit} className="mt-4">
+        Submit
+      </Button>
+    </div>
+  );
+}
 
 export default InputBox;
