@@ -20,6 +20,7 @@ const Home: React.FC<HomeProps> = (_props: HomeProps) => {
 					selectedFile={selectedFile}
 					setSelectedFile={setSelectedFile}
 				/>
+				
 			</div>
 
 			<div className={!show ? "" : "hidden"}>

@@ -9,7 +9,7 @@ function App() {
 				<div className=" w-[68px] h-full left-0 z-1 top-0 bg-green-500 rounded-xl col-span-1 ">
 					<NavBar />
 				</div>
-				<div className=" h-screen bg-red-500 col-span-10">
+				<div className=" h-screen bg-red-500 col-span-10 flex  justify-center">
 					<Home />
 				</div>
         <div className=" col-span-1"></div>
