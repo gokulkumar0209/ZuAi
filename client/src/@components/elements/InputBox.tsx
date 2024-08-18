@@ -51,18 +51,18 @@ function InputBox({ selectedFile, setSelectedFile }: InputBoxProps) {
 	return (
 		<div className="flex flex-col items-center">
 			<div
-				className={`relative bg-gray-300 border-2 border-dashed border-gray-500 w-[400px] h-[400px] flex items-center justify-center ${
+				className={` bg-gray-300 border-2 border-dashed border-gray-500 w-[400px] h-[300px] flex items-center justify-center ${
 					isDragging ? "bg-gray-500" : ""
 				}`}
 				onDrop={handleDrop}
 				onDragOver={handleDragOver}
 				onDragLeave={handleDragLeave}
 			>
-				<input
+				<div><input
 					type="file"
 					onChange={handleFileChange}
-					className="absolute cursor-pointer opacity-0 w-full h-full"
-				/>
+					className="  absolute left-1/3 top-1/3  cursor-pointer opacity-100 w-full h-full"
+				/></div>
 				{!selectedFile && !isDragging && (
 					<span>Drag & Drop or Click to Select a File</span>
 				)}
