@@ -23,15 +23,15 @@ function DragDrop({ selectedFile, setSelectedFile }: DragDropProps) {
 	return (
 		<div className="p-4">
 			<div
-				className="bg-gray-300 border-2 border-dashed border-gray-500 w-[400px] h-[300px] relative block"
+				className="bg-gray-300 border-2 border-dashed border-gray-500 w-[400px] h-[200px] relative block"
 				style={{ pointerEvents: "all" }}
 				onDrop={handleDrop}
 				onDragOver={handleDragOver}
 			></div>
-			<div className=" flex items-center justify-center h-full">
+			<div className=" relative -top-32 flex items-center justify-center">
 				{selectedFile && <span>{selectedFile.name}</span>}
 			</div>
-			<div className=" absolute">
+			<div className=" relative -top-24 flex justify-center">
 				<label
 					htmlFor="file-upload"
 					className=" cursor-pointer font-bold py-2 px-4 rounded"
