@@ -26,7 +26,13 @@ const Home: React.FC<HomeProps> = (_props: HomeProps) => {
 							setShow={setShow}
 						/>
 					</div>
-          <div className=" bg-yellow-200"></div>
+					<div className=" container">
+						<img
+							src="https://www.pixelstalk.net/wp-content/uploads/2016/07/1080p-HD-Image-Nature-Desktop.jpg"
+							className=" h-full w-full object-cover p-6"
+						></img>
+					</div>
+					<div className=" bg-yellow-200"></div>
 				</div>
 			) : (
 				<Result
@@ -34,6 +40,7 @@ const Home: React.FC<HomeProps> = (_props: HomeProps) => {
 					selectedFile={selectedFile}
 				/>
 			)}
+			<div>My Course works</div>
 		</div>
 	);
 };
