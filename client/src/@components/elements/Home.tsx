@@ -2,6 +2,7 @@ import { useState } from "react";
 import InputBox from "./InputBox";
 import Result from "./Result";
 import { Button } from "../ui/button";
+import History from "./History";
 
 interface HomeProps {
 	// Add any necessary props here
@@ -40,7 +41,12 @@ const Home: React.FC<HomeProps> = (_props: HomeProps) => {
 					selectedFile={selectedFile}
 				/>
 			)}
-			<div>My Course works</div>
+			<div>
+				My Course works
+				<div>
+					<History />
+				</div>
+			</div>
 		</div>
 	);
 };

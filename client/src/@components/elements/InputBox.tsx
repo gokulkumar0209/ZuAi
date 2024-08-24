@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import DragDrop from "./DragDrop";
-import { Button } from "../ui/button"; 
+import { Button } from "../ui/button";
+import { criteria, review } from "@/store/dummy";
+import { v4 as uuidv4 } from "uuid";
 
 interface InputBoxProps {
 	selectedFile: File | null;
@@ -27,15 +29,38 @@ const InputBox: React.FC<InputBoxProps> = ({
 			const reader = new FileReader();
 			reader.onload = () => {
 				const fileData = reader.result as string;
-				const existingFiles: { name: string; content: string }[] = JSON.parse(
-					localStorage.getItem("files") || "[]"
+				const fileId = uuidv4();
+				const newEntry = {
+					id: fileId,
+					name: selectedFile.name,
+					content: fileData,
+					title: title,
+					subject: subject,
+					course: course,
+					rating: 16, 
+					resultRating: 8, 
+					language: "English", 
+					words: 4000, 
+					timeToRead: 20, 
+					criteria: criteria,
+					review: review, 
+					timestamp: new Date().toISOString(), 
+				};
+
+				const existingHistory: any[] = JSON.parse(
+					localStorage.getItem("history") || "[]"
 				);
-				existingFiles.push({ name: selectedFile.name, content: fileData });
-				localStorage.setItem("files", JSON.stringify(existingFiles));
+
+				existingHistory.push(newEntry);
+
+				localStorage.setItem("history", JSON.stringify(existingHistory));
+
+				localStorage.setItem("lastSelected", fileId);
+
 				alert(`File "${selectedFile.name}" saved successfully.`);
+				setShow(false);
 			};
 			reader.readAsDataURL(selectedFile);
-			setShow(false);
 		} else {
 			setShow(true);
 			alert(!selectedFile ? "No file selected!" : "No title Given");
