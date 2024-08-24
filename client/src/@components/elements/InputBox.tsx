@@ -7,13 +7,11 @@ import { v4 as uuidv4 } from "uuid";
 interface InputBoxProps {
 	selectedFile: File | null;
 	setSelectedFile: (file: File | null) => void;
-	setShow: (show: boolean) => void;
 }
 
 const InputBox: React.FC<InputBoxProps> = ({
 	selectedFile,
 	setSelectedFile,
-	setShow,
 }) => {
 	const [course, setCourse] = useState<string>("");
 	const [subject, setSubject] = useState<string>("");
@@ -37,14 +35,14 @@ const InputBox: React.FC<InputBoxProps> = ({
 					title: title,
 					subject: subject,
 					course: course,
-					rating: 16, 
-					resultRating: 8, 
-					language: "English", 
-					words: 4000, 
-					timeToRead: 20, 
+					rating: 16,
+					resultRating: 8,
+					language: "English",
+					words: 4000,
+					timeToRead: 20,
 					criteria: criteria,
-					review: review, 
-					timestamp: new Date().toISOString(), 
+					review: review,
+					timestamp: new Date().toISOString(),
 				};
 
 				const existingHistory: any[] = JSON.parse(
@@ -58,11 +56,9 @@ const InputBox: React.FC<InputBoxProps> = ({
 				localStorage.setItem("lastSelected", fileId);
 
 				alert(`File "${selectedFile.name}" saved successfully.`);
-				setShow(false);
 			};
 			reader.readAsDataURL(selectedFile);
 		} else {
-			setShow(true);
 			alert(!selectedFile ? "No file selected!" : "No title Given");
 		}
 	};
