@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 interface FileData {
+	content: string;
 	id: string;
 }
 
@@ -16,13 +17,27 @@ function History() {
 
 	return (
 		<div>
-			{data.length > 0 ? (
-				data.map((file) => <div key={file.id}>{file.id}</div>)
-			) : (
-				<div>No history found</div>
-			)}
+		  {data.length > 0 ? (
+			data.map((file) => (
+			  <div key={file.id} className="m-28">
+				<div>{file.id}</div>
+				<div className="m-5 ">
+				  <object
+					data={file.content}
+				
+					wmode="window"
+					 
+				  />
+				
+				</div>
+			  </div>
+			))
+		  ) : (
+			<div>No history found</div>
+		  )}
 		</div>
-	);
-}
+	  );
+	}
+
 
 export default History;

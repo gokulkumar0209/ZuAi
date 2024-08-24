@@ -3,7 +3,6 @@ import "react-circular-progressbar/dist/styles.css";
 import Explanations from "./Explanations";
 import Overall from "./Overall";
 import { data1, data2 } from "@/store/dummy";
-import PdfViewer from "./Pdfviewer"; // Make sure the filename matches
 
 const Result: React.FC = () => {
 	const [pdfUrl, setPdfUrl] = useState<string | null>(null);
@@ -40,7 +39,12 @@ const Result: React.FC = () => {
 	return (
 		<div className="grid grid-cols-2 h-screen">
 			<div className="bg-gray-100 h-full p-4">
-				{pdfUrl ? <PdfViewer pdfFile={pdfUrl} /> : <div>No file selected</div>}
+				{pdfUrl ? (
+					// <iframe src={pdfUrl} className=" h-full w-full border-none"></iframe>
+					<object data={pdfUrl} className=" h-full w-full"></object>
+				) : (
+					<div>No file selected</div>
+				)}
 			</div>
 			<div className="bg-white p-4">
 				<Overall percentage={percentage} remark={remark} date={date} />
