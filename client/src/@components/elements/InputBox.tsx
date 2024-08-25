@@ -16,8 +16,8 @@ const InputBox: React.FC<InputBoxProps> = ({
 	selectedFile,
 	setSelectedFile,
 }) => {
-	const [course, setCourse] = useState<string>("");
-	const [subject, setSubject] = useState<string>("");
+	const [course, setCourse] = useState<string>("Others");
+	const [subject, setSubject] = useState<string>("Others");
 	const [title, setTitle] = useState<string>("");
 
 	useEffect(() => {

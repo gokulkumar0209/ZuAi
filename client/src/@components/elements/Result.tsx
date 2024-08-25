@@ -8,8 +8,8 @@ const Result: React.FC = () => {
 	const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 	const [remark, setRemark] = useState("");
 	const [date, setDate] = useState("");
-	const [percentage, setPercentage] = useState(0);
-
+	const [rating, setRating] = useState(0);
+	const [resultRating, setResultRating] = useState(0);
 	useEffect(() => {
 		try {
 			const lastSelectedId = localStorage.getItem("lastSelected");
@@ -23,7 +23,8 @@ const Result: React.FC = () => {
 					setPdfUrl(selectedFileData.content);
 					setDate(new Date(selectedFileData.lastModified).toLocaleDateString());
 					setRemark(selectedFileData.remark || "Good");
-					setPercentage(selectedFileData.resultRating || 0);
+					setRating(selectedFileData.rating);
+					setResultRating(selectedFileData.resultRating);
 				} else {
 					alert("No file found with the given ID.");
 				}
@@ -47,7 +48,12 @@ const Result: React.FC = () => {
 				)}
 			</div>
 			<div className="bg-white p-4">
-				<Overall percentage={percentage} remark={remark} date={date} />
+				<Overall
+					rating={rating}
+					resultRating={resultRating}
+					remark={remark}
+					date={date}
+				/>
 				<Explanations percentage={80} data1={data1} data2={data2} />
 				<Explanations percentage={60} data1={data1} data2={data2} />
 				<Explanations percentage={40} data1={data1} data2={data2} />

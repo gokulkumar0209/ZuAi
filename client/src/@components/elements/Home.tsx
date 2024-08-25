@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import InputBox from "./InputBox";
 import History from "./History";
+import Examples from "./Examples";
 
 interface HomeProps {
 	// Add any necessary props here
@@ -29,9 +30,15 @@ const Home: React.FC<HomeProps> = (_props: HomeProps) => {
 			</div>
 
 			<div>
-				My Course Works
+				<h2>My Course Works</h2>
 				<div>
 					<History />
+				</div>
+			</div>
+			<div>
+				<h2>Explore Coursework</h2>
+				<div>
+					<Examples />
 				</div>
 			</div>
 		</div>
