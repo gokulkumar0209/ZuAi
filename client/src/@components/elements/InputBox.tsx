@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { criteria, review } from "@/store/dummy";
 import { v4 as uuidv4 } from "uuid";
 import { getDocument, GlobalWorkerOptions, version } from "pdfjs-dist";
+import { useNavigate } from "react-router-dom";
 
 GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.js`;
 
@@ -16,6 +17,7 @@ const InputBox: React.FC<InputBoxProps> = ({
 	selectedFile,
 	setSelectedFile,
 }) => {
+	const navigate = useNavigate();
 	const [course, setCourse] = useState<string>("Others");
 	const [subject, setSubject] = useState<string>("Others");
 	const [title, setTitle] = useState<string>("");
@@ -88,6 +90,7 @@ const InputBox: React.FC<InputBoxProps> = ({
 					alert(`File "${selectedFile.name}" saved successfully.`);
 				};
 				reader.readAsDataURL(selectedFile);
+				navigate("/result");
 			} catch (error) {
 				console.error("Error processing file:", error);
 				alert("An error occurred while processing the file.");
