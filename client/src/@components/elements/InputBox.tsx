@@ -3,6 +3,9 @@ import DragDrop from "./DragDrop";
 import { Button } from "../ui/button";
 import { criteria, review } from "@/store/dummy";
 import { v4 as uuidv4 } from "uuid";
+import { getDocument, GlobalWorkerOptions, version } from "pdfjs-dist";
+
+GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.js`;
 
 interface InputBoxProps {
 	selectedFile: File | null;
@@ -21,43 +24,74 @@ const InputBox: React.FC<InputBoxProps> = ({
 		setTitle("");
 	}, [selectedFile]);
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const convertPdfToImage = async (file: File): Promise<string> => {
+		const arrayBuffer = await file.arrayBuffer();
+		const pdf = await getDocument({ data: arrayBuffer }).promise;
+		const page = await pdf.getPage(1);
+
+		const viewport = page.getViewport({ scale: 1 });
+		const canvas = document.createElement("canvas");
+		const context = canvas.getContext("2d");
+
+		if (!context) {
+			throw new Error("Failed to get canvas context");
+		}
+
+		canvas.height = viewport.height;
+		canvas.width = viewport.width;
+
+		await page.render({
+			canvasContext: context,
+			viewport: viewport,
+		}).promise;
+
+		return canvas.toDataURL("image/png");
+	};
+
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (selectedFile && title) {
-			const reader = new FileReader();
-			reader.onload = () => {
-				const fileData = reader.result as string;
-				const fileId = uuidv4();
-				const newEntry = {
-					id: fileId,
-					name: selectedFile.name,
-					content: fileData,
-					title: title,
-					subject: subject,
-					course: course,
-					rating: 16,
-					resultRating: 8,
-					language: "English",
-					words: 4000,
-					timeToRead: 20,
-					criteria: criteria,
-					review: review,
-					timestamp: new Date().toISOString(),
+			try {
+				const imageUrl = await convertPdfToImage(selectedFile);
+				const reader = new FileReader();
+				reader.onload = () => {
+					const fileData = reader.result as string;
+					const fileId = uuidv4();
+					const newEntry = {
+						id: fileId,
+						name: selectedFile.name,
+						content: fileData,
+						title: title,
+						subject: subject,
+						course: course,
+						rating: 16,
+						resultRating: 8,
+						language: "English",
+						words: 4000,
+						timeToRead: 20,
+						criteria: criteria,
+						review: review,
+						timestamp: new Date().toISOString(),
+						image: imageUrl,
+					};
+
+					const existingHistory: any[] = JSON.parse(
+						localStorage.getItem("history") || "[]"
+					);
+
+					existingHistory.push(newEntry);
+
+					localStorage.setItem("history", JSON.stringify(existingHistory));
+
+					localStorage.setItem("lastSelected", fileId);
+
+					alert(`File "${selectedFile.name}" saved successfully.`);
 				};
-
-				const existingHistory: any[] = JSON.parse(
-					localStorage.getItem("history") || "[]"
-				);
-
-				existingHistory.push(newEntry);
-
-				localStorage.setItem("history", JSON.stringify(existingHistory));
-
-				localStorage.setItem("lastSelected", fileId);
-
-				alert(`File "${selectedFile.name}" saved successfully.`);
-			};
-			reader.readAsDataURL(selectedFile);
+				reader.readAsDataURL(selectedFile);
+			} catch (error) {
+				console.error("Error processing file:", error);
+				alert("An error occurred while processing the file.");
+			}
 		} else {
 			alert(!selectedFile ? "No file selected!" : "No title Given");
 		}
