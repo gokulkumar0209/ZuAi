@@ -1,18 +1,14 @@
-import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
 import {
 	BookIcon,
 	FileQuestion,
 	LayoutDashboardIcon,
-	ChevronRight,
-	ChevronLeft,
 	Files,
 } from "lucide-react";
 
 function NavBar() {
 	const navigate = useNavigate();
-	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<div
