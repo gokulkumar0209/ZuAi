@@ -11,35 +11,34 @@ const Home: React.FC<HomeProps> = (_props: HomeProps) => {
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
 	return (
-		<div className="w-full">
-			<div className="grid grid-cols-2">
-				<div className="col-span-1">
+		<div className="w-full p-4">
+			{/* InputBox and Image: Full width on all screens */}
+			<div className="w-full flex flex-col lg:flex-row gap-4">
+				<div className="flex-1">
 					<InputBox
 						selectedFile={selectedFile}
 						setSelectedFile={setSelectedFile}
 					/>
 				</div>
-				<div className="container">
+				<div className="hidden lg:flex flex-1">
 					<img
 						src="https://www.pixelstalk.net/wp-content/uploads/2016/07/1080p-HD-Image-Nature-Desktop.jpg"
-						className="h-full w-full object-cover p-6"
+						className="w-full h-auto object-cover rounded-lg"
 						alt="Nature"
 					/>
 				</div>
-				<div className="bg-yellow-200"></div>
 			</div>
 
-			<div>
-				<h2>My Course Works</h2>
-				<div>
-					<History />
-				</div>
+			{/* My Course Works Section: Full width on all screens */}
+			<div className="bg-yellow-200 p-4 rounded-lg mt-4">
+				<h2 className="text-lg font-semibold mb-4">My Course Works</h2>
+				<History />
 			</div>
-			<div>
-				<h2>Explore Coursework</h2>
-				<div>
-					<Examples />
-				</div>
+
+			{/* Explore Coursework Section: Full width on all screens */}
+			<div className="bg-blue-200 p-4 rounded-lg mt-4">
+				<h2 className="text-lg font-semibold mb-4">Explore Coursework</h2>
+				<Examples />
 			</div>
 		</div>
 	);

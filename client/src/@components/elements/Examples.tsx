@@ -42,14 +42,14 @@ function Examples() {
 	}, [selectedCourse]);
 
 	return (
-		<div className="p-2">
-			<div className="flex gap-2 mb-4">
+		<div className="p-4 sm:p-6 lg:p-8">
+			<div className="flex flex-wrap gap-2 mb-4">
 				{["IA", "EE", "IO", "Tok", "Others"].map((course) => (
 					<Button
 						key={course}
 						value={course}
 						onClick={() => setSelectedCourse(course)}
-						className={`bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition duration-200 ${
+						className={`bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition duration-200 ${
 							selectedCourse === course ? "bg-blue-700" : ""
 						}`}
 					>
@@ -57,13 +57,13 @@ function Examples() {
 					</Button>
 				))}
 			</div>
-			<div className="grid grid-cols-2 gap-4">
+			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 				{filteredData.length > 0 ? (
 					filteredData.map((file) => (
 						<CourseworkCard key={file.id} file={file} />
 					))
 				) : (
-					<div>No files found</div>
+					<div className="col-span-full text-center text-gray-500">No files found</div>
 				)}
 			</div>
 		</div>

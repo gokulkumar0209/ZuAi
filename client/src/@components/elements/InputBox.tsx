@@ -101,19 +101,19 @@ const InputBox: React.FC<InputBoxProps> = ({
 	};
 
 	return (
-		<div className="bg-gray-200 p-6 rounded-lg m-6">
+		<div className="bg-white p-4 md:p-8 rounded-lg shadow-md">
 			<DragDrop selectedFile={selectedFile} setSelectedFile={setSelectedFile} />
-			<form onSubmit={handleSubmit} className="space-y-4">
-				<div className="flex flex-col">
-					<label htmlFor="course" className="mb-1 font-semibold">
-						Select your course and subjects
-					</label>
-					<div className="flex space-x-4">
+			<form onSubmit={handleSubmit} className="space-y-6">
+				<div className="flex flex-col md:flex-row md:space-x-4">
+					<div className="flex-1">
+						<label htmlFor="course" className="block mb-2 text-gray-700 font-semibold">
+							Select your course
+						</label>
 						<select
 							name="course"
 							value={course}
 							onChange={(e) => setCourse(e.target.value)}
-							className="w-1/2 p-2 border border-gray-300 rounded-lg"
+							className="w-full p-3 border border-gray-300 rounded-lg"
 						>
 							<option value="">Course Work Type</option>
 							<option value="IA">IA</option>
@@ -121,11 +121,16 @@ const InputBox: React.FC<InputBoxProps> = ({
 							<option value="IO">IO</option>
 							<option value="Tok">Tok</option>
 						</select>
+					</div>
+					<div className="flex-1 mt-4 md:mt-0">
+						<label htmlFor="subject" className="block mb-2 text-gray-700 font-semibold">
+							Select your subject
+						</label>
 						<select
 							name="subject"
 							value={subject}
 							onChange={(e) => setSubject(e.target.value)}
-							className="w-1/2 p-2 border border-gray-300 rounded-lg"
+							className="w-full p-3 border border-gray-300 rounded-lg"
 						>
 							<option value="">Subject</option>
 							<option value="Fluid Dynamics">Fluid Dynamics</option>
@@ -135,8 +140,8 @@ const InputBox: React.FC<InputBoxProps> = ({
 						</select>
 					</div>
 				</div>
-				<div className="flex flex-col">
-					<label htmlFor="title" className="mb-1 font-semibold">
+				<div>
+					<label htmlFor="title" className="block mb-2 text-gray-700 font-semibold">
 						Enter your Essay Title *
 					</label>
 					<input
@@ -146,11 +151,14 @@ const InputBox: React.FC<InputBoxProps> = ({
 						placeholder="how nation works"
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
-						className="p-2 border border-gray-300 rounded-lg"
+						className="w-full p-3 border border-gray-300 rounded-lg"
 					/>
 				</div>
 				<div className="flex justify-center">
-					<Button type="submit" className="mt-4">
+					<Button
+						type="submit"
+						className="mt-6 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+					>
 						Evaluate your score
 					</Button>
 				</div>

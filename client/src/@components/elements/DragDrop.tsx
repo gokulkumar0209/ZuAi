@@ -23,26 +23,26 @@ const DragDrop: React.FC<DragDropProps> = ({ selectedFile, setSelectedFile }) =>
   };
 
   return (
-    <div className="p-6 bg-gray-100 flex flex-col items-center border-2 border-dashed border-gray-400 rounded-lg">
+    <div className="p-6 bg-gray-100 flex flex-col items-center border-2 border-dashed border-gray-400 rounded-lg max-w-md mx-auto">
       <div
-        className=" w-full h-20 flex flex-col items-center justify-center cursor-pointer"
+        className="w-full h-20 flex flex-col items-center justify-center cursor-pointer text-center"
         onDrop={handleDrop}
         onDragOver={handleDragOver}
       >
         {selectedFile ? (
-          <span className="text-gray-700">{selectedFile.name}</span>
+          <span className="text-gray-700 truncate">{selectedFile.name}</span>
         ) : (
-          <div className="text-center text-gray-500">
-            <FileUp className="mx-auto mb-1" />
-            <p>Drag and Drop file</p>
-            <p className=" text-xs">Limit 25 MB per file</p>
+          <div className="text-gray-500">
+            <FileUp className="mx-auto mb-2 w-10 h-10" />
+            <p className="text-sm md:text-base">Drag and Drop file</p>
+            <p className="text-xs">Limit 25 MB per file</p>
           </div>
         )}
       </div>
-      <div className="mt-2">
+      <div className="mt-4">
         <label
           htmlFor="file-upload"
-          className="cursor-pointer font-bold py-2 px-4 bg-blue-500 text-white rounded-lg"
+          className="cursor-pointer font-bold py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
         >
           Upload file
         </label>
