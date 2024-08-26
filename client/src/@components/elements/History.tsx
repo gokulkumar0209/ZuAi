@@ -35,14 +35,7 @@ function History() {
   return (
     <div className="p-4 md:p-6 lg:p-8">
       {/* Optional image for larger screens */}
-      <div className="hidden lg:block mb-4">
-        <img
-          src="https://www.pixelstalk.net/wp-content/uploads/2016/07/1080p-HD-Image-Nature-Desktop.jpg"
-          alt="Nature"
-          className="w-full h-auto rounded-lg"
-        />
-      </div>
-
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {displayedData.length > 0 ? (
           displayedData.map((file) => (

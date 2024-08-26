@@ -23,7 +23,7 @@ const DragDrop: React.FC<DragDropProps> = ({ selectedFile, setSelectedFile }) =>
   };
 
   return (
-    <div className="p-6 bg-gray-100 flex flex-col items-center border-2 border-dashed border-gray-400 rounded-lg max-w-md mx-auto">
+    <div className=" p-6 bg-gray-100 flex flex-col items-center border-2 border-dashed border-gray-400 rounded-lg max-w-md mx-auto">
       <div
         className="w-full h-20 flex flex-col items-center justify-center cursor-pointer text-center"
         onDrop={handleDrop}
