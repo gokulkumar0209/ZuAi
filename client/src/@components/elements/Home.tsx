@@ -30,13 +30,13 @@ const Home: React.FC<HomeProps> = (_props: HomeProps) => {
 			</div>
 
 			{/* My Course Works Section: Full width on all screens */}
-			<div className="bg-yellow-200 p-4 rounded-lg mt-4">
+			<div className="p-4 rounded-lg mt-4">
 				<h2 className="text-lg font-semibold mb-4">My Course Works</h2>
 				<History />
 			</div>
 
 			{/* Explore Coursework Section: Full width on all screens */}
-			<div className="bg-blue-200 p-4 rounded-lg mt-4">
+			<div className=" p-4 rounded-lg mt-4">
 				<h2 className="text-lg font-semibold mb-4">Explore Coursework</h2>
 				<Examples />
 			</div>
