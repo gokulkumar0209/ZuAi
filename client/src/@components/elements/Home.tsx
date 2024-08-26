@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import InputBox from "./InputBox";
 import History from "./History";
 import Examples from "./Examples";
+import { design } from "@/store/design";
 
 interface HomeProps {
 	// Add any necessary props here
@@ -22,9 +23,9 @@ const Home: React.FC<HomeProps> = (_props: HomeProps) => {
 				</div>
 				<div className="hidden lg:flex flex-1">
 					<img
-						src="https://www.pixelstalk.net/wp-content/uploads/2016/07/1080p-HD-Image-Nature-Desktop.jpg"
-						className="w-full h-auto object-cover rounded-lg"
-						alt="Nature"
+						src={design}
+						className="w-full h-96 object-contain rounded-lg"
+						alt="Image"
 					/>
 				</div>
 			</div>

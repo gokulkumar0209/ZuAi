@@ -15,4 +15,6 @@ const C = {
 	good: [data1, data2],
 	average: [data1, data2]
 }
-export const  criteria={A,B,C}
+export const criteria = { A, B, C }
+
+

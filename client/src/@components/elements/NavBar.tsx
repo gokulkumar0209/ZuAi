@@ -7,6 +7,8 @@ import {
 	Files,
 } from "lucide-react";
 
+import { logo } from "@/store/logo";
+import { teen } from "@/store/teen";
 function NavBar() {
 	const navigate = useNavigate();
 
@@ -17,7 +19,7 @@ function NavBar() {
 		>
 			<div className="flex flex-col items-center justify-between  w-full">
 				<img
-					src="images/ZuAI.png"
+					src={logo}
 					alt="Company Logo"
 					className="w-12 h-auto mt-4 rounded-lg cursor-pointer hover:bg-slate-600"
 					onClick={() => navigate("/")}
@@ -37,7 +39,7 @@ function NavBar() {
 					</Button>
 				</div>
 				<img
-					src="images/TEEN.png"
+					src={teen}
 					alt="Secondary Logo"
 					className="w-12 h-auto mt-4 rounded-full cursor-pointer hover:bg-slate-600"
 				/>
