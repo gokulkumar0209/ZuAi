@@ -56,7 +56,7 @@ const Result: React.FC = () => {
 				)}
 			</div>
 			<div className="bg-white p-2 md:p-4 flex flex-col space-y-4">
-				<Overall rating={rating} resultRating={10} date={date} />
+				<Overall rating={rating} resultRating={resultRating} date={date} />
 				<Explanations percentage={80} data1={data1} data2={data2} />
 				<Explanations percentage={60} data1={data1} data2={data2} />
 				<Explanations percentage={40} data1={data1} data2={data2} />
